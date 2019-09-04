@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact-list',
@@ -8,8 +9,21 @@ import { Router} from '@angular/router';
 })
 export class ContactListComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // 组件初始化
+    this.http.get('http://localhost:3000/contacts')
+      .toPromise()
+      .then(data => {
+        console.log('data===', data);
+      })
+      .catch(err => {
+        console.log('err===', err);
+      });
+  }
 
 }

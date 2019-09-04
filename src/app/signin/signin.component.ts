@@ -17,7 +17,10 @@ export class SigninComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   err_message = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) { }
 
   ngOnInit() {
   }

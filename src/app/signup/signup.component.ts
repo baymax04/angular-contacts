@@ -25,7 +25,10 @@ export class SignupComponent implements OnInit {
   // 那么 Angular 会自动去实例化 HttpClient 得到一个实例
   // 然后我们就可以在组件中使用http 这个成员来调用 一些请求方法
   // 例如 http.get  http.post...
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) { }
 
   ngOnInit() {
   }
@@ -39,7 +42,7 @@ export class SignupComponent implements OnInit {
       .then((data: any) => {
         this.email_err_msg = '';
         window.localStorage.setItem('auth_token', data.token);
-        window.localStorage.setItem('user)info', JSON.stringify(data.user));
+        window.localStorage.setItem('user_info', JSON.stringify(data.user));
         // window.alert('用户注册成功！');
         // 用户注册成功后，进行路由跳转，跳转到首页
         this.router.navigate(['/']);

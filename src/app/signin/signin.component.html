@@ -17,7 +17,7 @@
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input name ="email" type="email" id="inputEmail" class="form-control" 
-      placeholder="Email address" required autofocus [(ngModel)]="signupForm.email"
+      placeholder="Email address" required autofocus [(ngModel)]="signinForm.email"
       #email="ngModel"> <!-- #email 表单验证-->
       <!--当 email 是有效的或者没被碰过，该div 被隐藏-->
       <!--
@@ -68,5 +68,5 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit"
     [disabled]="!form.form.valid">Sign in</button>  <!--(第一个form是表单名)验证失败时，该button 不允许click-->
   </form>
-  <p class="info"><a href="signin.html">Already have an account? Login here.</a></p>
+  <p class="info"><a routerLink="/signup">Already have an account? Login here.</a></p>
 </div>
