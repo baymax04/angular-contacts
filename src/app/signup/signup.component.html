@@ -1,11 +1,62 @@
+<!--
+<p>{{signupForm.email}}</p>
+<p>{{signupForm.password}}</p>  双向绑定,获取输入的数据
+-->
 <div class="container">
-  <form class="form-signin">
+  <form #form="ngForm" (submit)="signup()" class="form-signin">  <!--(submit)="signup()"  注册方法-->
     <h2 class="form-signin-heading">Please sign up</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input name ="email" type="email" id="inputEmail" class="form-control" 
+      placeholder="Email address" required autofocus [(ngModel)]="signupForm.email"
+      #email="ngModel"> <!-- #email 表单验证-->
+      <!--当 email 是有效的或者没被碰过，该div 被隐藏-->
+      <!--
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        Email is required !
+      </div>
+      -->
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+          Email is required!
+        </div>
+        <div *ngIf="email.errors.email">
+          Invalid Email!
+        </div>
+      </div>
+      <div *ngIf="email_err_msg" class="alert alert-danger">
+        {{email_err_msg}}
+      </div>
+    <!--
+      Angular 表单双向绑定会为绑定的元素提供一些类名
+      ng-touched    ng-untouched
+      ng-dirty      ng-pristine
+      ng-valid      ng-invalid
+    -->
+    <p>{{email.className}}</p>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <input name ="password" type="password" id="inputPassword" class="form-control" 
+      placeholder="Password" required minlength="6" maxlength="20" [(ngModel)]="signupForm.password"
+      #password="ngModel">
+      <!--
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+      Password is required!
+      </div>
+      -->
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+          PassWord is required!
+        </div>
+        <div *ngIf="password.errors.minlength">
+          Password minlength 6!
+        </div>
+        <div *ngIf="password.errors.maxlength">
+          Password maxlength 20!
+        </div>
+      </div>
+
+    <p>{{password.className}}</p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"
+    [disabled]="!form.form.valid">Sign up</button>  <!--(第一个form是表单名)验证失败时，该button 不允许click-->
   </form>
   <p class="info"><a href="signin.html">Already have an account? Login here.</a></p>
 </div>
